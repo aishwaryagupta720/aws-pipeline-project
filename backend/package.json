@@ -1,0 +1,24 @@
+{
+  "name": "aws-backend",
+  "version": "1.0.0",
+  "description": "A simple backend for AWS deployment using Express and MySQL",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://your-repository-url-here.git"
+  },
+  "author": "Aishwarya Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.0",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

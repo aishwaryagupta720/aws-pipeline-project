@@ -1,0 +1,169 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Deploy EC2, RDS, S3, ECR with parameters for all configurable inputs including CIDR for security groups and VPC ID
+
+Parameters:
+  KeyPairName:
+    Description: Name of the EC2 key pair
+    Type: AWS::EC2::KeyPair::KeyName
+
+  InstanceType:
+    Description: EC2 instance type
+    Type: String
+    Default: t2.micro
+
+  AMIId:
+    Description: AMI ID for the EC2 instance
+    Type: String
+    Default: ami-0b7e98d79e7be0a33
+
+  RDSInstanceClass:
+    Description: The instance type of the RDS instance
+    Type: String
+    Default: db.t3.micro
+
+  RDSStorage:
+    Description: The allocated storage size for the RDS instance
+    Type: Number
+    Default: 20
+
+  RDSEngineVersion:
+    Description: Version of the MySQL engine
+    Type: String
+    Default: "8.0.39"
+
+  MasterUsername:
+    Description: Master username for the RDS instance
+    Type: String
+    Default: adminuser
+
+  SubnetId1:
+    Description: ID of the first subnet
+    Type: AWS::EC2::Subnet::Id
+
+  SubnetId2:
+    Description: ID of the second subnet
+    Type: AWS::EC2::Subnet::Id
+
+  CIDRIP:
+    Description: CIDR IP range for the security group
+    Type: String
+    Default: "172.31.0.0/16"
+
+  VPCId:
+    Description: VPC ID where resources will be deployed
+    Type: AWS::EC2::VPC::Id
+    Default: vpc-0ec101c74cd43695d
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: !Ref AMIId
+      SecurityGroupIds:
+        - !Ref InstanceSecurityGroup
+      KeyName: !Ref KeyPairName
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH and TCP/80
+      VpcId: !Ref VPCId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref CIDRIP
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Ref CIDRIP
+
+  MyDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: "Subnet Group for RDS Instance"
+      SubnetIds:
+        - !Ref SubnetId1
+        - !Ref SubnetId2
+
+  MyRDSInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: !Ref RDSInstanceClass
+      AllocatedStorage: !Ref RDSStorage
+      Engine: MySQL
+      EngineVersion: !Ref RDSEngineVersion
+      MasterUsername: !Ref MasterUsername
+      ManageMasterUserPassword: True
+      DBSubnetGroupName: !Ref MyDBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref RDSSecurityGroup
+
+  RDSSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Security group for RDS MySQL"
+      VpcId: !Ref VPCId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: !Ref CIDRIP
+
+  MyS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: aws-apg-automation
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        IgnorePublicAcls: false
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+
+  MyS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MyS3Bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: "*"
+            Action:
+              - s3:GetObject
+            Resource:
+              - !Sub "arn:aws:s3:::${MyS3Bucket}/*"
+
+  MyECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: aws-automation-repo
+
+Outputs:
+  EC2InstanceId:
+    Description: "Instance ID of the EC2 instance"
+    Value: !Ref MyEC2Instance
+
+  RDSInstanceEndpoint:
+    Description: "Connection endpoint for the RDS instance"
+    Value: !GetAtt MyRDSInstance.Endpoint.Address
+
+  S3BucketName:
+    Description: "Name of the S3 Bucket"
+    Value: !Ref MyS3Bucket
+
+  ECRRepositoryURI:
+    Description: "URI of the ECR repository"
+    Value: !GetAtt MyECRRepository.RepositoryUri

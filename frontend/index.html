@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <script src="config.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <header class="header">
+        <img src="https://test-apg.s3.us-east-2.amazonaws.com/logo.png" alt="Logo" class="logo">
+        <h1 class="title">INVENTORY MANAGENMENT </h1>
+        <br>
+        <!-- <nav class="header-nav">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/inventory">Inventory</a>
+            <a href="/orders">Orders</a>
+            <a href="/settings">Settings</a>
+        </nav> -->
+    </header>
+    <div class="container mt-3">
+        <h1>Product Catalog</h1>
+        <div class="button-container">
+            <button class="btn btn-primary mb-3" onclick="fetchProducts()">Refresh</button>
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addProductModal">Add
+                Product</button>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="productForm">
+                            <div class="form-group">
+                                <label for="productName">Product Name</label>
+                                <input type="text" class="form-control" id="productName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productDescription">Description</label>
+                                <input type="text" class="form-control" id="productDescription" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productPrice">Price</label>
+                                <input type="number" class="form-control" id="productPrice" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productUnits">Units</label>
+                                <input type="number" id="productUnits" placeholder="Units" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productStatus">Status</label>
+                                <input type="text" id="productStatus" placeholder="Status" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Units</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="productList"></tbody>
+        </table>
+    </div>
+
+    <!-- <script>
+        function fetchProducts() {
+            fetch('http://18.226.200.33:3000/products')
+                .then(response => response.json())
+                .then(products => {
+                    const list = document.getElementById('productList');
+                    list.innerHTML = '';
+                    products.forEach(product => {
+                        const row = document.createElement('tr');
+                        const nameCell = document.createElement('td');
+                        const descCell = document.createElement('td');
+                        const priceCell = document.createElement('td');
+
+                        nameCell.textContent = product.name;
+                        descCell.textContent = product.description;
+                        priceCell.textContent = `$${parseFloat(product.price).toFixed(2)}`;
+
+                        row.appendChild(nameCell);
+                        row.appendChild(descCell);
+                        row.appendChild(priceCell);
+                        list.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById('productForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            addProduct();
+        });
+
+        function addProduct() {
+            const name = document.getElementById('productName').value;
+            const description = document.getElementById('productDescription').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+
+            const productData = { name, description, price };
+
+            fetch('http://18.188.204.52:3000/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    fetchProducts(); // Refresh the list
+                    $('#addProductModal').modal('hide'); // Close the modal using jQuery
+                    clearFormFields(); // Clear form fields after submission
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Function to clear the form fields
+        function clearFormFields() {
+            document.getElementById('productName').value = '';
+            document.getElementById('productDescription').value = '';
+            document.getElementById('productPrice').value = '';
+        }
+
+
+        window.onload = fetchProducts;
+    </script> -->
+</body>
+
+</html>

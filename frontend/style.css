@@ -1,0 +1,263 @@
+.header {
+    background-color: #141414;
+    /* Dark background for the header */
+    padding: 20px 0;
+    /* Padding around the header */
+    width: 100%;
+    /* Full width */
+    top: 0;
+    /* Stick to the top */
+    left: 0;
+    /* Stick to the left */
+    z-index: 1000;
+    /* Ensure it's above other content */
+    display: flex;
+    /* Enable flexbox */
+    align-items: center;
+    /* Center items vertically */
+    justify-content: space-between;
+    /* Distribute space between elements */
+    font-size: 50px;
+}
+
+
+.title {
+    font-size: 24px;
+    /* Adjust the font size as necessary */
+    color: white;
+    margin-right: auto;
+    /* This will push everything else to the right */
+}
+
+.header-nav {
+    display: flex;
+    margin-left: 20px;
+    /* Spacing between title and nav */
+}
+
+.header-nav a {
+    font-size: 14px;
+    /* Smaller font size for links */
+    color: white;
+    background-color: #333;
+    /* Dark grey background */
+    padding: 8px 12px;
+    margin: 0 5px;
+    /* Space between links */
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.header-nav a:hover {
+    background-color: #555;
+    /* Lighter grey on hover */
+}
+
+
+
+.status-box {
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+    /* White text for better readability */
+    font-weight: bold;
+    border-radius: 5px;
+    /* Rounded corners for a better visual appearance */
+    text-align: center;
+}
+
+.status-available {
+    color: green;
+}
+
+.status-limited {
+    color: orange;
+}
+
+.status-outofstock {
+    color: red;
+}
+
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* Take full width of the header */
+    align-items: center;
+    /* Center items vertically */
+    padding: 0 20px;
+    /* Padding on both sides for spacing */
+}
+
+.logo {
+    width: 300px;
+    /* Adjust based on your actual logo size */
+    height: auto;
+    /* Maintain aspect ratio */
+    margin-right: auto;
+    /* Pushes everything else to the right */
+}
+
+.title {
+    color: white;
+    font-size: 40px;
+    /* Increased font size */
+    margin: 0;
+    flex-grow: 1;
+    text-align: right;
+    /* Center the title text if no line */
+    letter-spacing: 3.5px;
+}
+
+.container {
+    margin-top: 120px;
+    /* Push down the container to make space for the fixed header */
+}
+
+/* Additional styles for the table and buttons can remain the same */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url('https://test-apg.s3.us-east-2.amazonaws.com/stock-trading-monitor-desk-preview.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* dark background for better contrast */
+    color: #fff;
+    /* white text for better readability */
+}
+
+.container {
+    max-width: 960px;
+    /* Adjusted for wider layout */
+    margin: auto;
+    background: #222;
+    /* darker card background */
+    padding: 20px;
+    border-radius: 0;
+    /* square corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    /* stronger shadow for depth */
+}
+
+h1 {
+    font-size: 24px;
+    color: #e3404f;
+    /* color changed to match plan headers */
+    text-align: center;
+    border-bottom: 2px solid #e3404f;
+    /* header underline color */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #343a40;
+    /* base color for table */
+}
+
+th,
+td {
+    color: white;
+    padding: 15px;
+    /* more padding for a better look */
+    text-align: center;
+    /* center align text */
+    border-bottom: 2px solid #495057;
+    /* darker line for separation */
+    background-color: rgba(52, 58, 64, 0.8);
+}
+
+th {
+    background-color: #e3404f;
+    /* consistent theme color for headers */
+    color: white;
+}
+
+
+/* Alternating row colors for better readability */
+.table tbody tr:nth-child(odd) {
+    /* odd rows */
+    background-color: #333333;
+    /* Dark grey/black */
+}
+
+.table tbody tr:nth-child(even) {
+    /* even rows */
+    background-color: #494949;
+    /* Lighter grey */
+}
+
+tbody tr:hover {
+    background-color: #222;
+    /* hover effect for rows */
+}
+
+/* Modal Customization */
+.modal-content {
+    background-color: #000000;
+    /* Set modal background to black */
+    color: white;
+    /* Ensure text color is white for contrast */
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    border-color: #333333;
+    /* Darker border within the modal for subtle distinction */
+}
+
+/* You can also adjust button styles within the modal if necessary */
+.modal-content button {
+    background-color: #d9534f;
+    /* Example: Red buttons */
+    color: white;
+}
+
+.modal-content button:hover {
+    background-color: #c9302c;
+    /* Darker red on hover */
+}
+
+button {
+    background-color: #e3404f;
+    /* consistent theme color for buttons */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    /* rounded corners for buttons */
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    /* smooth transition for hover */
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    /* This will put maximum space between the buttons */
+    align-items: center;
+    /* This aligns the buttons vertically */
+    padding: 20px;
+    /* Optional padding around the container */
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    /* Bootstrap info button color */
+}
+
+.btn-success {
+    background-color: #28a745;
+    /* Bootstrap success button color */
+}
+
+button:hover {
+    opacity: 0.8;
+    /* darken button on hover */
+}
