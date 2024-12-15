@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14 # Ensure Node.js is available for backend
+    commands:
+      - echo "Installing dependencies for backend..."
+      - cd backend
+      - npm install
+      - cd ..
+  build:
+    commands:
+      - echo "Preparing frontend for deployment..."
+      - cd frontend
+      - zip -r ../frontend.zip * # Zip all frontend static files
+      - cd ..
+      - echo "Packaging backend for deployment..."
+      - cd backend
+      - zip -r ../backend.zip * # Package backend files for CodeDeploy
+      - cd ..
+  post_build:
+    commands:
+      - echo "Build phase completed. Artifacts ready for deployment."
+
+artifacts:
+  files:
+    - frontend.zip # Frontend artifact for S3 deployment
+    - backend.zip # Backend artifact for CodeDeploy

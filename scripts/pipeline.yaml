@@ -1,0 +1,62 @@
+Resources:
+  FrontendBackendPipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: FrontendBackendPipeline
+      RoleArn: <CodePipelineIAMRoleARN>
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: FetchSource
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: "1"
+              Configuration:
+                Owner: <GitHubOwner>
+                Repo: <GitHubRepo>
+                Branch: main
+                OAuthToken: <GitHubOAuthToken>
+              OutputArtifacts:
+                - Name: SourceOutput
+        - Name: Build
+          Actions:
+            - Name: BuildSource
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: "1"
+              Configuration:
+                ProjectName: FrontendBackendBuild
+              InputArtifacts:
+                - Name: SourceOutput
+              OutputArtifacts:
+                - Name: BuildOutput
+        - Name: DeployFrontend
+          Actions:
+            - Name: DeployFrontendToS3
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: S3
+                Version: "1"
+              Configuration:
+                BucketName: <FrontendS3Bucket>
+                Extract: true
+              InputArtifacts:
+                - Name: BuildOutput
+        - Name: DeployBackend
+          Actions:
+            - Name: DeployBackendToEC2
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CodeDeploy
+                Version: "1"
+              Configuration:
+                ApplicationName: BackendApplication
+                DeploymentGroupName: BackendDeploymentGroup
+              InputArtifacts:
+                - Name: BuildOutput
