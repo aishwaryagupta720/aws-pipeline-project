@@ -4,7 +4,7 @@ files:
   - source: backend/
     destination: home/ubuntu/awsapp
 hooks:
-  BeforeInstall:
+  Install:
     - location: backend/install_dependencies.sh
       timeout: 300
       runas: root
