@@ -4,7 +4,11 @@ files:
   - source: backend/
     destination: home/ubuntu/awsapp
 hooks:
-  Install:
+  BeforeInstall:
+    - script: |
+        echo "Cleaning destination directory..."
+        sudo rm -rf /home/ubuntu/awsapp/*
+  AfterInstall:
     - location: backend/install_dependencies.sh
       timeout: 300
       runas: root
