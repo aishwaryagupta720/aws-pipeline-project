@@ -5,10 +5,10 @@ files:
     destination: /awsapp
 hooks:
   BeforeInstall:
-    - location: install_dependencies.sh
+    - location: backend/install_dependencies.sh
       timeout: 300
       runas: root
   ApplicationStart:
-    - location: start_server.sh
+    - location: backend/start_server.sh
       timeout: 300
       runas: root
