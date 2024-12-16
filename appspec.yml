@@ -1,10 +1,17 @@
 version: 0.0
 os: linux
 files:
-  - source: backend/
+  - source: backend.zip
     destination: /awsapp
 hooks:
   BeforeInstall:
+    - script: |
+        echo "Unzipping backend.zip..."
+        unzip /awsapp/backend.zip -d /awsapp
+        echo "Unzip complete. Cleaning up..."
+        rm /awsapp/backend.zip
+      timeout: 300
+      runas: root
     - location: scripts/install_dependencies.sh
       timeout: 300
       runas: root
