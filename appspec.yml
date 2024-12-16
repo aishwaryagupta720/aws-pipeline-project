@@ -5,9 +5,7 @@ files:
     destination: /home/ubuntu/awsapp
 hooks:
   BeforeInstall:
-    - script: |
-        echo "Cleaning destination directory..."
-        sudo rm -rf /home/ubuntu/awsapp/*
+    - location: backend/cleanup.sh
       timeout: 300
       runas: root
   AfterInstall:
