@@ -2,13 +2,13 @@ version: 0.0
 os: linux
 files:
   - source: backend/
-    destination: /home/ubuntu/awsapp
+    destination: /awsapp
 hooks:
   BeforeInstall:
-    - location: backend/scripts/install_dependencies.sh
+    - location: scripts/install_dependencies.sh
       timeout: 300
       runas: root
   ApplicationStart:
-    - location: backend/scripts/start_server.sh
+    - location: scripts/start_server.sh
       timeout: 300
       runas: root
