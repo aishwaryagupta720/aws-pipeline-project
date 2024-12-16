@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: backend/
-    destination: /awsapp
+    destination: home/ubuntu/awsapp
 hooks:
   BeforeInstall:
     - location: backend/install_dependencies.sh

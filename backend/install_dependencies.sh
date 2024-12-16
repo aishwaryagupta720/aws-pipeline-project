@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /awsapp
+cd home/ubuntu/awsapp
 npm install
