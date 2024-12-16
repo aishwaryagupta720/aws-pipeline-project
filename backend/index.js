@@ -1,9 +1,18 @@
 const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors');
-const bconfig = require('./bconfig');  // Import your configuration from bconfig.js
+const cors = require('cors'); // Import your configuration from bconfig.js
 const app = express();
 
+const path = './bconfig';
+
+try {
+    fs.accessSync(path, fs.constants.R_OK);
+    console.log('bconfig.js is readable.');
+} catch (err) {
+    console.error('bconfig.js is not readable:', err.message);
+}
+
+const bconfig = require('./bconfig');
 // MySQL Connection using bconfig
 const db = mysql.createConnection(bconfig.database);
 
