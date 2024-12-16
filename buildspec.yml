@@ -26,6 +26,6 @@ artifacts:
   files:
     - appspec.yml
     - backend.zip
-    - frontend.zip
+    - frontend/**
     - backend/** # Include all files in the `backend` folder
   discard-paths: no
