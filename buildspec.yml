@@ -25,5 +25,6 @@ phases:
 
 artifacts:
   files:
+    - appspec.yml
     - frontend.zip # Frontend artifact for S3 deployment
     - backend.zip # Backend artifact for CodeDeploy
