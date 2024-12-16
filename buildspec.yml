@@ -7,7 +7,6 @@ phases:
     commands:
       - echo "Installing dependencies for backend..."
       - cd backend
-      - npm install
       - cd ..
   build:
     commands:
@@ -26,5 +25,7 @@ phases:
 artifacts:
   files:
     - appspec.yml
-    - frontend.zip # Frontend artifact for S3 deployment
-    - backend.zip # Backend artifact for CodeDeploy
+    - backend.zip
+    - frontend.zip
+    - backend/** # Include all files in the `backend` folder
+  discard-paths: no
