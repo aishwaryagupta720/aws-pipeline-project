@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Automating Web Application Deployment using  AWS Native Tools
-=======
-# Automating Web Application Deployment using AWS Native Tools
->>>>>>> 82fa4f4efa7a40300e788850f27504dba3ee28ac
 
 ## Project Overview
 
