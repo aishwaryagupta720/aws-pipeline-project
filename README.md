@@ -56,7 +56,7 @@ The project uses AWS services to manage the infrastructure, which includes compo
    - Preparing the artifacts (e.g., `backend.zip` and `frontend.zip`) for deployment.
 3. **`frontend/`**: This folder contains the source code for the frontend static web application. The build process compiles this code into optimized assets for deployment to an S3 bucket or other hosting service.
 4. **`backend/`**: This folder contains the source code for the backend server-side API. The build process packages this code for deployment to an EC2 instance or other compute services.
-5. **`scripts/`**: This folder contains helper scripts used during the deployment process. Examples include scripts for installing dependencies, restarting services, or running database migrations.
+5. **`scripts/`**: This folder contains the CICD Cloudformation scripts to deploy the infrastructure 
 6. **`aws-project-arch.png`**: This is an image file illustrating the architecture of the project, showing the relationships between AWS services and application components.
 7. **`README.md`**: This documentation file provides an overview of the project, explains its objectives, and describes the purpose of each file.
 
