@@ -1,4 +1,4 @@
-# Automating Web Application Deployment usinggit  AWS Native Tools
+# Automating Web Application Deployment using AWS Native Tools
 
 ## Project Overview
 
