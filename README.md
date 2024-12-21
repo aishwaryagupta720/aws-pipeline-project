@@ -1,4 +1,4 @@
-# Automating Web Application Deployment usinggit  AWS Native Tools
+# Automating Web Application Deployment using  AWS Native Tools
 
 ## Project Overview
 
@@ -9,6 +9,7 @@ This project focuses on automating the deployment and management of a web applic
 
 The project uses AWS services to manage the infrastructure, which includes components such as EC2, S3, RDS PostgreSQL, and VPC (with subnets, IGWs, route tables, NAT, and NACLs).
 
+![Project Diagram](aws-project-arch.png)
 ---
 
 ## Objectives
